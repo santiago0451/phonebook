@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import './app.scss'
 
 const contacts = [
   {
@@ -19,7 +20,7 @@ const contacts = [
   {
     id: '4',
     name: 'Ilda Nora',
-    phone: '397-948-1093',
+    phone: '320-948-1093',
   },
   {
     id: '5',
@@ -29,52 +30,52 @@ const contacts = [
   {
     id: '6',
     name: 'Ángela',
-    phone: '359-146-0942',
+    phone: '319-146-0942',
   },
   {
     id: '7',
     name: 'Luisa',
-    phone: '355-376-8045',
+    phone: '315-376-8045',
   },
   {
     id: '8',
     name: 'Mariana',
-    phone: '347-997-1431',
+    phone: '317-997-1431',
   },
   {
     id: '9',
     name: 'Manuela',
-    phone: '348-502-2612',
+    phone: '318-502-2612',
   },
   {
     id: '10',
     name: 'Laura',
-    phone: '389-059-0214',
+    phone: '319-059-0214',
   },
   {
     id: '11',
     name: 'Luis',
-    phone: '389-666-1044',
+    phone: '321-666-1044',
   },
   {
     id: '12',
     name: 'Pepe',
-    phone: '326-793-4060',
+    phone: '306-793-4060',
   },
   {
     id: '13',
     name: 'Alberto',
-    phone: '349-106-2017',
+    phone: '319-106-2017',
   },
   {
     id: '14',
     name: 'Juan',
-    phone: '356-781-7416',
+    phone: '323-781-7416',
   },
   {
     id: '15',
     name: 'Manuel',
-    phone: '363-026-0338',
+    phone: '323-026-0338',
   },
   {
     id: '16',
@@ -89,7 +90,7 @@ const contacts = [
   {
     id: '18',
     name: 'Viviana',
-    phone: '346-452-0467',
+    phone: '318-452-0467',
   },
   {
     id: '19',
@@ -99,7 +100,7 @@ const contacts = [
   {
     id: '20',
     name: 'Nia',
-    phone: '337-483-7883',
+    phone: '307-483-7883',
   },
 ]
 
@@ -124,36 +125,36 @@ function App() {
   }
 
   return (
-    <main>
-      <div className='phonebook-container'>
-        <input
-          placeholder='Santiago, Mariano...'
-          onChange={handleInputChange}
-          value={searchValue}
-        />
-        <ul>
-          {searchValue === '' ? (
-            contacts.map((contact) => (
-              <li key={contact.id}>
-                {contact.name}
-                <br />
-                {contact.phone}
-              </li>
-            ))
-          ) : searchResults.length > 0 ? (
-            searchResults.map((contact) => (
-              <li key={contact.id}>
-                {contact.name}
-                <br />
-                {contact.phone}
-              </li>
-            ))
-          ) : (
-            <li>Contacto no encontrado</li>
-          )}
-        </ul>
+    <div className='main-container'>
+      <div className='phonebook-card'>
+        <main className='phonebook-container'>
+          <input
+            placeholder='Santiago, Mariano...'
+            onChange={handleInputChange}
+            value={searchValue}
+          />
+          <ul>
+            {searchValue === '' ? (
+              contacts.map((contact) => (
+                <li key={contact.id}>
+                  <span className="name">{contact.name}</span>
+                  <span className="phone">{contact.phone}</span>
+                </li>
+              ))
+            ) : searchResults.length > 0 ? (
+              searchResults.map((contact) => (
+                <li key={contact.id}>
+                  <span className="name">{contact.name}</span>
+                  <span className="phone">{contact.phone}</span>
+                </li>
+              ))
+            ) : (
+              <li>Contacto no encontrado</li>
+            )}
+          </ul>
+        </main>
       </div>
-    </main>
+    </div>
   )
 }
 
