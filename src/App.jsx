@@ -115,7 +115,10 @@ function App() {
 
   const handleSearch = (searchValue) => {
     const filteredResults = contacts.filter((contact) => {
-      return contact.name.toLowerCase().includes(searchValue.toLowerCase())
+      const nameMatch = contact.name.toLowerCase().startsWith(searchValue.toLowerCase())
+      const phoneMatch = contact.phone.startsWith(searchValue)
+
+      return nameMatch || phoneMatch
     })
     setSearchResults(filteredResults)
   }
