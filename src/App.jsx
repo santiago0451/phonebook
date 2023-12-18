@@ -4,12 +4,12 @@ import './app.scss'
 const contacts = [
   {
     id: '1',
-    name: 'Santiago',
+    name: 'Dario',
     phone: '314-715-9143',
   },
   {
     id: '2',
-    name: 'Mariano',
+    name: 'Ángela',
     phone: '304-025-1291',
   },
   {
@@ -24,12 +24,12 @@ const contacts = [
   },
   {
     id: '5',
-    name: 'Dario',
+    name: 'Mariano',
     phone: '310-527-6263',
   },
   {
     id: '6',
-    name: 'Ángela',
+    name: 'Santiago',
     phone: '319-146-0942',
   },
   {
@@ -137,19 +137,23 @@ function App() {
             {searchValue === '' ? (
               contacts.map((contact) => (
                 <li key={contact.id}>
-                  <span className="name">{contact.name}</span>
-                  <span className="phone">{contact.phone}</span>
+                  <div className='contact-card'>
+                    <span className="name">{contact.name}</span>
+                    <span className="phone">{contact.phone}</span>
+                  </div>
                 </li>
               ))
             ) : searchResults.length > 0 ? (
               searchResults.map((contact) => (
                 <li key={contact.id}>
-                  <span className="name">{contact.name}</span>
-                  <span className="phone">{contact.phone}</span>
+                  <div className='contact-card'>
+                    <span className="name">{contact.name}</span>
+                    <span className="phone">{contact.phone}</span>
+                  </div>
                 </li>
               ))
             ) : (
-              <li>Contacto no encontrado</li>
+              <li className='not-found'>Contacto no encontrado</li>
             )}
           </ul>
         </main>
