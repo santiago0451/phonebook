@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './app.scss'
 
+const contactsPerPage = 5
 const contacts = [
   {
     id: '1',
@@ -106,7 +107,12 @@ const contacts = [
 
 function App() {
   const [searchValue, setSearchValue] = useState('')
-  const [searchResults, setSearchResults] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const [filteredResults, setFilteredResults] = useState([])
+
+  useEffect(() => {
+    setFilteredResults(contacts)
+  }, [])
 
   const handleInputChange = (event) => {
     const value = event.target.value
@@ -115,13 +121,23 @@ function App() {
   }
 
   const handleSearch = (searchValue) => {
-    const filteredResults = contacts.filter((contact) => {
+    const updatedResults = contacts.filter((contact) => {
       const nameMatch = contact.name.toLowerCase().startsWith(searchValue.toLowerCase())
       const phoneMatch = contact.phone.startsWith(searchValue)
 
       return nameMatch || phoneMatch
     })
-    setSearchResults(filteredResults)
+    setFilteredResults(updatedResults)
+    setCurrentPage(1)
+  }
+
+  const totalPages = Math.ceil(filteredResults.length / contactsPerPage)
+  const startIndex = (currentPage - 1) * contactsPerPage
+  const endIndex = startIndex + contactsPerPage
+  const pageContacts = filteredResults.slice(startIndex, endIndex)
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage)
   }
 
   return (
@@ -134,28 +150,26 @@ function App() {
             value={searchValue}
           />
           <ul>
-            {searchValue === '' ? (
-              contacts.map((contact) => (
-                <li key={contact.id}>
-                  <div className='contact-card'>
-                    <span className="name">{contact.name}</span>
-                    <span className="phone">{contact.phone}</span>
-                  </div>
-                </li>
-              ))
-            ) : searchResults.length > 0 ? (
-              searchResults.map((contact) => (
-                <li key={contact.id}>
-                  <div className='contact-card'>
-                    <span className="name">{contact.name}</span>
-                    <span className="phone">{contact.phone}</span>
-                  </div>
-                </li>
-              ))
-            ) : (
+            {searchValue && pageContacts.length === 0 ? (
               <li className='not-found'>Contacto no encontrado</li>
+            ) : (
+              pageContacts.map((contact) => (
+                <li key={contact.id}>
+                  <div className='contact-card'>
+                    <span className="name">{contact.name}</span>
+                    <span className="phone">{contact.phone}</span>
+                  </div>
+                </li>
+              ))
             )}
           </ul>
+          <div className="pagination">
+            {Array.from({ length: totalPages }).map((_, index) => (
+              <button key={index + 1} onClick={() => handlePageChange(index + 1)}>
+                Page {index + 1}
+              </button>
+            ))}
+          </div>
         </main>
       </div>
     </div>
